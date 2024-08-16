@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:55:02 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/16 15:05:33 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/16 15:41:31 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 # include <pthread.h>
 
+// Each fork has a mutex associated with it so only one philo can use it
 typedef struct s_fork
 {
 	pthread_mutex_t	mutex;
 }	t_fork;
 
+/* Philo structure with all the corresponding parameters*/
 typedef struct s_philosopher
 {
 	int			id;
@@ -32,7 +34,7 @@ typedef struct s_philosopher
 	int			times_must_eat;
 }	t_philosopher;
 
-typedef struct	s_config
+typedef struct s_config
 {
 	int	num_philosophers;
 	int	time_to_die;
