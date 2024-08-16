@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:55:02 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/16 14:58:39 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/16 15:05:33 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,16 @@ typedef struct s_philosopher
 	int			times_must_eat;
 }	t_philosopher;
 
+typedef struct	s_config
+{
+	int	num_philosophers;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	times_must_eat;
+}	t_config;
+
 void	initialize_forks(t_fork *forks, int num_forks);
-void	initialize_philosophers(t_philosopher *philosophers, int num_philosophers, int time_to_die, int time_to_eat, int time_to_sleep, int times_must_eat);
+void	initialize_philosophers(t_philosopher *philosophers, t_config config);
 
 #endif
