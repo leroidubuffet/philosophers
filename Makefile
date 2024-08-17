@@ -2,7 +2,7 @@ NAME = philo
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INC = -I ./inc
-SRC = src/main.c src/philosopher.c src/forks.c
+SRC = src/main.c src/arg_utils.c src/num_utils.c
 OBJ = $(SRC:.c=.o)
 SANITIZE = -g -fsanitize=address
 
