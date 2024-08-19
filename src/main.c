@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:18 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/17 18:55:04 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 13:36:45 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv)
 {
-	if (validate_arguments(argc, argv) != 0)
+	if (validate_args(argc, argv) != 0)
 		return (1);
 
 /*	t_config	config;

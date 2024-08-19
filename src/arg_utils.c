@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/17 19:29:00 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 13:36:45 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	is_positive_integer(const char *str)
 	int num;
 
 	num = ft_atoi(str);
-	return (num > 0); // Verifica que el número sea mayor que cero
+	return (num > 0);
 }
 
-int	validate_arguments(int argc, char **argv)
+int	validate_args(int argc, char **argv)
 {
 	int	i;
 
