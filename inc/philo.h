@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:55:02 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 13:43:11 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 14:10:18 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		validate_args(int argc, char *argv[]);
 void	parse_args(int argc, char **argv, t_config *config);
 
 // General program
+void	init_program(t_config *config, int argc, char **argv);
 void	initialize_simulation(t_config config, t_fork **forks, \
 		t_philosopher **philosophers);
 void	clean_up(t_fork *forks, t_philosopher *philosophers);
