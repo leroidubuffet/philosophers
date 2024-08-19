@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*				           */
+/*				    :::      ::::::::   */
+/*   philo.h				     :+:      :+:    :+:   */
+/*				+:+ +:+         +:+     */
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 14:55:02 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 14:10:18 by airyago          ###   ########.fr       */
-/*                                                                            */
+/*				         +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/16 14:55:02 by airyago           #+#    #+#				*/
+/*   Updated: 2024/08/19 14:22:18 by airyago          ###   ########.fr       */
+/*				           */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
@@ -34,15 +34,18 @@ Philo structure with all the corresponding parameters
 */
 typedef struct s_philosopher
 {
-	int			id;
-	int			left_fork_id;
-	int			right_fork_id;
-	pthread_t	thread;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			times_must_eat;
-}	t_philosopher;
+	int				id;
+	int				left_fork_id;
+	int				right_fork_id;
+	pthread_t		thread;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				times_must_eat;
+	long long		last_meal_time;   // Timestamp of the last time the philosopher ate
+	pthread_mutex_t *state_mutex;     // Mutex to protect the philosopher's state
+}   t_philosopher;
+
 
 typedef struct s_config
 {
