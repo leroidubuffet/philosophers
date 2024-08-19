@@ -6,19 +6,35 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 13:36:45 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 13:42:54 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	is_positive_integer(const char *str)
+static int is_positive_integer(const char *str)
 {
+	int i;
 	int num;
 
+	i = 0;
+	// Check for empty string and negative sign
+	if (str[0] == '\0' || str[0] == '-')
+		return 0;
+
+	// Check each character
+	while (str[i]) {
+		if (!ft_is_digit(str[i]))
+			return 0;
+		i++;
+	}
+	// Convert to integer and check for positive value
 	num = ft_atoi(str);
-	return (num > 0);
+	if (num <= 0)
+		return 0;
+	return 1;
 }
+
 
 int	validate_args(int argc, char **argv)
 {

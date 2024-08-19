@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 19:22:16 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 13:15:46 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 13:43:02 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	ft_is_space(const char c)
 			|| c == '\f' || c == '\r' || c == '\v');
 }
 
-static bool	ft_is_digit(const char c)
+bool	ft_is_digit(const char c)
 {
 	if (ft_is_space(c))
 		return (false);
