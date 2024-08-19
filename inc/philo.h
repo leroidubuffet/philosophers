@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:55:02 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/17 19:25:42 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 13:36:46 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <limits.h>
 # include <stdbool.h>
 
-// Each fork has a mutex associated with it so only one philo can use it
+// Structure representing a philosopher's fork.
+// `mutex` is a mutex lock for accessing the fork.
 typedef struct s_fork
 {
 	pthread_mutex_t	mutex;
@@ -49,9 +50,14 @@ typedef struct s_config
 	int	times_must_eat;
 }	t_config;
 
+# Num utils
 int		ft_atoi(const char *str);
-int		validate_arguments(int argc, char *argv[]);
+
+# Arg utils
+int		validate_args(int argc, char *argv[]);
 void	parse_args(int argc, char **argv, t_config *config);
+
+# General program
 void	initialize_simulation(t_config config, t_fork **forks, \
 		t_philosopher **philosophers);
 void	clean_up(t_fork *forks, t_philosopher *philosophers);
