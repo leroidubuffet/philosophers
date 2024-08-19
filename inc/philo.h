@@ -66,7 +66,8 @@ void	parse_args(int argc, char **argv, t_config *config);
 
 // General program
 void	init_program(t_config *config, int argc, char **argv);
+int		init_resources(t_config *config, t_fork **forks);
 void	initialize_simulation(t_config config, t_fork **forks, \
 		t_philosopher **philosophers);
-void	clean_up(t_fork *forks, t_philosopher *philosophers);
+void	cleanup_resources(t_fork *forks, int num_philosophers);
 #endif
