@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:47:52 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 14:54:55 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 15:11:18 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	cleanup_resources(t_fork *forks, int num_philosophers)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i++ < num_philosophers)

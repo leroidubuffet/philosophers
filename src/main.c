@@ -6,12 +6,13 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:18 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 14:47:21 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/19 14:58:03 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+//DEBUG
 void print_config(const t_config *config) {
     printf("Number of Philosophers: %d\n", config->num_philosophers);
     printf("Time to Die: %d ms\n", config->time_to_die);
@@ -23,7 +24,6 @@ void print_config(const t_config *config) {
         printf("Times Must Eat: Not specified\n");
     }
 }
-
 //DEBUG
 
 int main(int argc, char **argv)
