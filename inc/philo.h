@@ -20,6 +20,8 @@
 # include <ctype.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <unistd.h>
+# include <sys/time.h>
 
 /*
 `mutex` is a mutex lock for accessing the fork.
@@ -66,4 +68,9 @@ int		init_resources(t_config *config, t_fork **forks);
 void	initialize_simulation(t_config config, t_fork **forks, \
 		t_philosopher **philosophers);
 void	cleanup_resources(t_fork *forks, int num_philosophers);
+void	log_state(int philo_id, char *msg);
+
+// Time
+size_t	get_current_time(void);
+
 #endif

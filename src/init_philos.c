@@ -6,11 +6,20 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:57:56 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/20 11:07:43 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/20 11:48:18 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	log_state(int philo_id, char *msg)
+{
+	size_t	time;
+
+	time = get_current_time();
+	printf("%zu %i is %s\n", time, philo_id, msg);
+	return ;
+}
 
 void *philosopher_routine(void *arg)
 {
@@ -21,11 +30,11 @@ void *philosopher_routine(void *arg)
 		log_state(philo->id, "is thinking");
 
 		// Attempt to pick up the left fork
-		pthread_mutex_lock(philo->left_fork->mutex);
+		pthread_mutex_lock(&philo->left_fork->mutex);
 		log_state(philo->id, "has taken a fork");
 
 		// Attempt to pick up the right fork
-		pthread_mutex_lock(philo->right_fork->mutex);
+		pthread_mutex_lock(&philo->right_fork->mutex);
 		log_state(philo->id, "has taken a fork");
 
 		// Eat
@@ -34,8 +43,8 @@ void *philosopher_routine(void *arg)
 		usleep(philo->config->time_to_eat * 1000);  // Simulate eating
 
 		// Put down the forks (unlock mutexes)
-		pthread_mutex_unlock(philo->right_fork->mutex);
-		pthread_mutex_unlock(philo->left_fork->mutex);
+		pthread_mutex_unlock(&philo->right_fork->mutex);
+		pthread_mutex_unlock(&philo->left_fork->mutex);
 
 		// Sleep
 		log_state(philo->id, "is sleeping");
@@ -43,7 +52,6 @@ void *philosopher_routine(void *arg)
 	}
 	return NULL;
 }
-
 
 int init_philosophers(t_philosopher **philosophers, t_fork *forks, t_config *config)
 {
@@ -54,9 +62,9 @@ int init_philosophers(t_philosopher **philosophers, t_fork *forks, t_config *con
 		printf("Failed to allocate memory for philosophers\n");
 		return (1);
 	}
-
 	i = 0;
-	while (i < config->num_philosophers) {
+	while (i < config->num_philosophers)
+	{
 		(*philosophers)[i].id = i + 1;
 		(*philosophers)[i].left_fork = &forks[i];
 		(*philosophers)[i].right_fork = &forks[(i + 1) % config->num_philosophers];
