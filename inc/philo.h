@@ -34,17 +34,14 @@ Philo structure with all the corresponding parameters
 */
 typedef struct s_philosopher
 {
-	int				id;
-	int				left_fork_id;
-	int				right_fork_id;
-	pthread_t		thread;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				times_must_eat;
-	long long		last_meal_time;   // Timestamp of the last time the philosopher ate
-	pthread_mutex_t *state_mutex;     // Mutex to protect the philosopher's state
-}   t_philosopher;
+    int				id;
+    t_fork			*left_fork;
+    t_fork			*right_fork;
+    pthread_t		thread;
+    t_config		*config;
+    long long		last_meal_time;   // Timestamp of the last time the philosopher ate
+    pthread_mutex_t *state_mutex;     // Mutex to protect the philosopher's state
+}	t_philosopher;
 
 
 typedef struct s_config
