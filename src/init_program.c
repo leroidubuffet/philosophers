@@ -6,14 +6,11 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:04:28 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/19 15:14:08 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/20 10:57:33 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-#include <stdio.h>
-#include <stdlib.h>
 
 static t_fork	*init_forks(int num_philosophers)
 {
