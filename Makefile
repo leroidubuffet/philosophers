@@ -1,8 +1,8 @@
 NAME = philo
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INC = -I ./inc
-SRC = src/main.c src/arg_utils.c src/num_utils.c src/init.c src/cleanup.c
+SRC = src/main.c src/arg_utils.c src/num_utils.c src/init_program.c src/cleanup.c src/init_philos.c
 OBJ = $(SRC:.c=.o)
 SANITIZE = -g -fsanitize=address
 
