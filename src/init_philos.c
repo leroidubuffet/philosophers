@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:57:56 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/20 11:48:18 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/20 12:22:56 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ int init_philosophers(t_philosopher **philosophers, t_fork *forks, t_config *con
 	int i;
 
 	*philosophers = malloc(sizeof(t_philosopher) * config->num_philosophers);
-	if (!*philosophers) {
+	if (!*philosophers)
+	{
 		printf("Failed to allocate memory for philosophers\n");
 		return (1);
 	}
+
 	i = 0;
 	while (i < config->num_philosophers)
 	{
@@ -71,17 +73,30 @@ int init_philosophers(t_philosopher **philosophers, t_fork *forks, t_config *con
 		(*philosophers)[i].config = config;
 		(*philosophers)[i].last_meal_time = 0; // Initialize the last meal time to zero or the start time
 		(*philosophers)[i].state_mutex = malloc(sizeof(pthread_mutex_t));
-		if (pthread_mutex_init((*philosophers)[i].state_mutex, NULL) != 0) {
+		if ((*philosophers)[i].state_mutex == NULL || pthread_mutex_init((*philosophers)[i].state_mutex, NULL) != 0) {
 			printf("Failed to initialize state mutex for philosopher %d\n", i);
-			// Clean up any created mutexes and threads
+			// Clean up any created mutexes and free memory
+			while (--i >= 0) {
+				pthread_mutex_destroy((*philosophers)[i].state_mutex);
+				free((*philosophers)[i].state_mutex);
+			}
+			free(*philosophers);
 			return (1);
 		}
 		if (pthread_create(&(*philosophers)[i].thread, NULL, philosopher_routine, &(*philosophers)[i]) != 0) {
 			printf("Failed to create thread for philosopher %d\n", i);
 			// Cleanup already created threads and resources
+			while (--i >= 0) {
+				pthread_mutex_destroy((*philosophers)[i].state_mutex);
+				free((*philosophers)[i].state_mutex);
+				pthread_cancel((*philosophers)[i].thread);
+				pthread_join((*philosophers)[i].thread, NULL);
+			}
+			free(*philosophers);
 			return (1);
 		}
 		i++;
 	}
 	return (0);
 }
+

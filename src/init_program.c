@@ -37,11 +37,18 @@ static t_fork	*init_forks(int num_philosophers)
 	return (forks);
 }
 
-int	init_resources(t_config *config, t_fork **forks)
+int	init_resources(t_config *config, t_fork **forks, t_philosopher **philos)
 {
 	*forks = init_forks(config->num_philosophers);
 	if (*forks == NULL)
 		return (1);
+
+	if (init_philosophers(philos, *forks, config) != 0)
+	{
+		cleanup_resources(*forks, config->num_philosophers);
+		return (1);
+	}
+
 	// Initialize other resources here if necessary
 	return (0);
 }

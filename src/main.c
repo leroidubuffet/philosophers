@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:18 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/20 12:10:15 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/20 12:23:31 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,33 @@ void print_config(const t_config *config) {
 
 int main(int argc, char **argv)
 {
+	t_config		config;
+	t_fork			*forks = NULL;
+	t_philosopher	*philos = NULL;
+
 	if (validate_args(argc, argv) != 0)
 		return (1);
-	t_config		config;
-	t_fork			*forks;
-	t_philosopher	*philos;
 
 	init_config(&config, argc, argv);
-	if (init_resources(&config, &forks) != 0)
+
+	if (init_resources(&config, &forks, &philos) != 0)
 		return (1);
+
 	print_config(&config); //DEBUG
+
+	// Wait for philosopher threads to finish
+	for (int i = 0; i < config.num_philosophers; i++)
+		pthread_join(philos[i].thread, NULL);
+
+	// Cleanup resources
+	cleanup_resources(forks, config.num_philosophers);
+	for (int i = 0; i < config.num_philosophers; i++)
+	{
+		pthread_mutex_destroy(philos[i].state_mutex);
+		free(philos[i].state_mutex);
+	}
+	free(philos);
 
 	return (0);
 }
+
