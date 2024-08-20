@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:04:28 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/20 10:57:33 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:01 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_resources(t_config *config, t_fork **forks)
 	return (0);
 }
 
-void	init_program(t_config *config, int argc, char **argv)
+void	init_config(t_config *config, int argc, char **argv)
 {
 	config->num_philosophers = ft_atoi(argv[1]);
 	config->time_to_die = ft_atoi(argv[2]);
