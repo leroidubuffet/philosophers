@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:57:56 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/20 12:50:32 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/20 12:58:30 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,31 @@ void	log_state(int philo_id, char *msg)
 	return ;
 }
 
-void *philosopher_routine(void *arg)
+void	*philosopher_routine(void *arg)
 {
-	t_philosopher *philo = (t_philosopher *)arg;
+	t_philosopher	*philo = (t_philosopher *)arg;
 
-	while (1) {
-		// Think (not involving forks)
+	while (1)
+	{
 		log_state(philo->id, "is thinking");
-
-		// Attempt to pick up the left fork
 		pthread_mutex_lock(&philo->left_fork->mutex);
 		log_state(philo->id, "has taken a fork");
-
-		// Attempt to pick up the right fork
 		pthread_mutex_lock(&philo->right_fork->mutex);
 		log_state(philo->id, "has taken a fork");
-
-		// Eat
 		log_state(philo->id, "is eating");
-		philo->last_meal_time = get_current_time();  // Update last meal time
-		usleep(philo->config->time_to_eat * 1000);  // Simulate eating
-
-		// Put down the forks (unlock mutexes)
+		philo->last_meal_time = get_current_time();
+		usleep(philo->config->time_to_eat * 1000);
 		pthread_mutex_unlock(&philo->right_fork->mutex);
 		pthread_mutex_unlock(&philo->left_fork->mutex);
-
-		// Sleep
 		log_state(philo->id, "is sleeping");
-		usleep(philo->config->time_to_sleep * 1000);  // Simulate sleeping
+		usleep(philo->config->time_to_sleep * 1000);
 	}
-	return NULL;
+	return (NULL);
 }
 
-static int allocate_philosophers(t_philosopher **philosophers, int num_philosophers)
+static int	allocate_philosophers(t_philosopher **philosophers, int num_philos)
 {
-	*philosophers = malloc(sizeof(t_philosopher) * num_philosophers);
+	*philosophers = malloc(sizeof(t_philosopher) * num_philos);
 	if (!*philosophers)
 	{
 		printf("Failed to allocate memory for philosophers\n");
@@ -70,14 +60,16 @@ static int init_philosopher(t_philosopher *philosopher, int id, t_fork *left_for
 	philosopher->left_fork = left_fork;
 	philosopher->right_fork = right_fork;
 	philosopher->config = config;
-	philosopher->last_meal_time = 0; // Initialize the last meal time to zero or the start time
+	philosopher->last_meal_time = 0;
 	philosopher->state_mutex = malloc(sizeof(pthread_mutex_t));
-	if (philosopher->state_mutex == NULL || pthread_mutex_init(philosopher->state_mutex, NULL) != 0)
+	if (philosopher->state_mutex == NULL
+		|| pthread_mutex_init(philosopher->state_mutex, NULL) != 0)
 	{
 		printf("Failed to initialize state mutex for philosopher %d\n", id);
 		return (1);
 	}
-	if (pthread_create(&philosopher->thread, NULL, philosopher_routine, philosopher) != 0)
+	if (pthread_create(&philosopher->thread, NULL,
+			philosopher_routine, philosopher) != 0)
 	{
 		printf("Failed to create thread for philosopher %d\n", id);
 		pthread_mutex_destroy(philosopher->state_mutex);
@@ -87,7 +79,7 @@ static int init_philosopher(t_philosopher *philosopher, int id, t_fork *left_for
 	return (0);
 }
 
-static void cleanup_philosophers_on_failure(t_philosopher *philosophers, int num_initialized)
+static void	cleanup_philosophers_on_failure(t_philosopher *philosophers, int num_initialized)
 {
 	int	i;
 
@@ -121,4 +113,3 @@ int init_philosophers(t_philosopher **philosophers, t_fork *forks, t_config *con
 	}
 	return (0);
 }
-
