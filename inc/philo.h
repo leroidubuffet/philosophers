@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 15:53:55 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 17:41:31 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_philo
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	size_t			num_times_to_eat;
+	size_t			*time_to_die;
+	size_t			*time_to_eat;
+	size_t			*time_to_sleep;
+	size_t			*num_times_to_eat;
 	size_t			last_meal;
 	size_t			start_time;
 	int				meals_eaten;
