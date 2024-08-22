@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 14:16:48 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 15:53:55 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@
 
 typedef struct s_config
 {
-	int	num_of_philos;
-	int	num_times_to_eat;
+	size_t			num_of_philos;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			num_times_to_eat;
 }	t_config;
 
 typedef struct s_philo
@@ -35,10 +38,11 @@ typedef struct s_philo
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
-	size_t			last_meal;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
+	size_t			num_times_to_eat;
+	size_t			last_meal;
 	size_t			start_time;
 	int				meals_eaten;
 	bool			eating;
@@ -63,5 +67,25 @@ int		ft_atoi(const char *str);
 // Arg utils
 int		validate_args(int argc, char *argv[]);
 void	parse_args(int argc, char **argv, t_config *config);
+
+// Program initialization
+void	init_program(t_program *program, t_philo *philos, t_config *config);
+void	init_forks(pthread_mutex_t *forks, int philo_num);
+void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
+			pthread_mutex_t *write_lock);
+
+// Simulation control
+void	start_simulation(t_program *program);
+void	stop_simulation(t_program *program);
+
+// Philosopher actions
+void	*philosopher_routine(void *arg);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+
+// Utility functions
+size_t	get_current_time(void);
+void	log_status(t_philo *philo, const char *status);
 
 #endif // PHILO_H

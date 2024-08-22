@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:17:29 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 14:54:33 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:14:24 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,33 @@ static void	get_input(t_philo *philo, t_config *config)
 }
 
 void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
-		char **argv)
+	pthread_mutex_t *write_lock)
 {
-	int	i;
-	int	num_of_philos;
+	size_t	current_time;
+	int		i;
 
-	num_of_philos = program->config->num_of_philos;
+	current_time = get_current_time();
 	i = 0;
-	while (i < num_of_philos)
+	while (i < program->config->num_of_philos)
 	{
-		philos[i].id = i + 1;
-		philos[i].eating = 0;
-		philos[i].meals_eaten = 0;
-		get_input(&philos[i], program->config);
-		philos[i].start_time = get_current_time();
-		philos[i].last_meal = get_current_time();
+		if (i == 0)
+			philos[i].r_fork = &forks[program->config->num_of_philos - 1];
+		else
+			philos[i].r_fork = &forks[i - 1];
+		philos[i].l_fork = &forks[i];
 		philos[i].write_lock = &program->write_lock;
 		philos[i].dead_lock = &program->dead_lock;
 		philos[i].meal_lock = &program->meal_lock;
+		philos[i].time_to_die = program->config->time_to_die;
+		philos[i].time_to_eat = program->config->time_to_eat;
+		philos[i].time_to_sleep = program->config->time_to_sleep;
+		philos[i].num_times_to_eat = program->config->num_times_to_eat;
+		philos[i].last_meal = current_time;
+		philos[i].start_time = current_time;
+		philos[i].meals_eaten = 0;
+		philos[i].eating = false;
 		philos[i].dead = &program->dead_flag;
-		philos[i].l_fork = &forks[i];
-		if (i == 0)
-			philos[i].r_fork = &forks[num_of_philos - 1];
-		else
-			philos[i].r_fork = &forks[i - 1];
+		philos[i].id = i + 1;
 		i++;
 	}
 }
