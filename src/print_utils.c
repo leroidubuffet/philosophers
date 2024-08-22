@@ -6,13 +6,13 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:09:11 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 17:16:19 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 17:52:16 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_message(char *str, t_philo *philo)
+void	log_philosopher_status(char *str, t_philo *philo)
 {
 	size_t	time;
 
