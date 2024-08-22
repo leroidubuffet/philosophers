@@ -59,6 +59,3 @@ This will remove the `bin/` directory and its contents.
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-```
-
-Please note that the above contents are a template and you may need to modify them based on your specific project requirements.
