@@ -6,18 +6,20 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 17:41:31 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 19:00:04 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
 # include <stdbool.h>
+
 // 300 philosophers is the maximum number of philosophers in the evaluation
 # define PHILO_MAX 300
 
@@ -48,6 +50,7 @@ typedef struct s_philo
 	bool			eating;
 	bool			*dead;
 	char			id;
+	t_config		*config;
 }					t_philo;
 
 typedef struct s_program
@@ -75,8 +78,8 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 			pthread_mutex_t *write_lock);
 
 // Simulation control
-void	start_simulation(t_program *program);
-void	stop_simulation(t_program *program);
+void	*monitor_philos(void *program_ptr);
+
 
 // Philosopher actions
 void	*philosopher_routine(void *arg);
@@ -86,6 +89,6 @@ void	philo_think(t_philo *philo);
 
 // Utility functions
 size_t	get_current_time(void);
-void	log_status(t_philo *philo, const char *status);
+void	log_philo_status(char *str, t_philo *philo);
 
 #endif // PHILO_H

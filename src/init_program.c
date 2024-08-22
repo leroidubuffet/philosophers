@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:17:29 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 16:14:24 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 19:01:30 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 		philos[i].eating = false;
 		philos[i].dead = &program->dead_flag;
 		philos[i].id = i + 1;
+		philos[i].config = program->config;
 		i++;
 	}
 }
