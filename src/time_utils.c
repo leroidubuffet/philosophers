@@ -1,31 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/22 13:43:32 by airyago           #+#    #+#             */
+/*   Updated: 2024/08/22 13:46:54 by airyago          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-/*
-** Function: get_time_ms
-** ----------------------
-** Get the current time in milliseconds.
-**
-** Returns: The current time in milliseconds.
-*/
-long long get_time_ms(void)
+static size_t	get_current_time(void)
 {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000LL + tv.tv_usec / 1000);
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-/*
-** Function: sleep_ms
-** ------------------
-** Sleep for the specified number of milliseconds.
-**
-** Parameters:
-**   - duration: The duration to sleep in milliseconds.
-*/
-void sleep_ms(long long duration)
+int	ft_sleep(size_t milliseconds)
 {
-    struct timespec ts;
-    ts.tv_sec = duration / 1000;
-    ts.tv_nsec = (duration % 1000) * 1000000;
-    nanosleep(&ts, NULL);
+	size_t	start;
+	size_t	current;
+
+	start = get_current_time();
+	if (start == (size_t)-1)
+		return (-1);
+	while (1)
+	{
+		current = get_current_time();
+		if (current == (size_t) - 1)
+			return (-1);
+		if ((current - start) >= milliseconds)
+			break ;
+		usleep(100);
+	}
+	return (0);
 }
+
