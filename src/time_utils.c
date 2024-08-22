@@ -6,16 +6,18 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:43:32 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 16:15:32 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:20:34 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// Dummy function for test_init.c
 // size_t	get_current_time(void)
 // {
 // 	return (1000);
 // }
+
 size_t	get_current_time(void)
 {
 	struct timeval	time;

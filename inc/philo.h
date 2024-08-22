@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:00:04 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 19:40:16 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <limits.h>
 # include <unistd.h>
 # include <stdbool.h>
 
@@ -29,7 +30,7 @@ typedef struct s_config
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			num_times_to_eat;
+	int				num_times_to_eat;
 }	t_config;
 
 typedef struct s_philo
@@ -74,12 +75,17 @@ void	parse_args(int argc, char **argv, t_config *config);
 // Program initialization
 void	init_program(t_program *program, t_philo *philos, t_config *config);
 void	init_forks(pthread_mutex_t *forks, int philo_num);
-void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
-			pthread_mutex_t *write_lock);
+void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks);
+int		init_threads(t_program *program, pthread_mutex_t *forks);
+
+// Utils
+int		ft_sleep(size_t milliseconds);
+void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks);
+int		ft_strlen(const char *str);
 
 // Simulation control
 void	*monitor_philos(void *program_ptr);
-
+int		is_philo_dead(t_philo *philo);
 
 // Philosopher actions
 void	*philosopher_routine(void *arg);

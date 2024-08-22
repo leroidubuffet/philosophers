@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:08:53 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 17:05:52 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 19:14:49 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv)
 		return (1);
 	init_config(&config, argv);
 	init_program(&program, philos, &config);
+	init_philos(philos, &program, forks);
 	init_forks(forks, config.num_of_philos);
 	init_threads(&program, forks);
 	return (0);

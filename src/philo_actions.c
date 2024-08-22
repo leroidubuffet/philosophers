@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:27:48 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:00:22 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 19:39:17 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	philo_think(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	log_philo_status("is sleeping", philo);
-	ft_usleep(philo->time_to_sleep);
+	ft_sleep(*philo->time_to_sleep);
 }
 
 // Eat routine function
@@ -32,7 +32,7 @@ void	philo_eat(t_philo *philo)
 	log_philo_status("has taken a fork", philo);
 	if (philo->config->num_of_philos == 1)
 	{
-		ft_usleep(philo->time_to_die);
+		ft_sleep(*philo->time_to_die);
 		pthread_mutex_unlock(philo->r_fork);
 		return ;
 	}
@@ -44,7 +44,7 @@ void	philo_eat(t_philo *philo)
 	philo->last_meal = get_current_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_lock);
-	ft_usleep(philo->time_to_eat);
+	ft_sleep(*philo->time_to_eat);
 	philo->eating = 0;
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);

@@ -6,25 +6,24 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:17:29 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:01:30 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/22 19:16:58 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	get_input(t_philo *philo, t_config *config)
-{
-	philo->time_to_die = config->time_to_die;
-	philo->time_to_eat = config->time_to_eat;
-	philo->time_to_sleep = config->time_to_sleep;
-	philo->num_times_to_eat = config->num_times_to_eat;
-}
+// static void	get_input(t_philo *philo, t_config *config)
+// {
+// 	philo->time_to_die = &config->time_to_die;
+// 	philo->time_to_eat = &config->time_to_eat;
+// 	philo->time_to_sleep = &config->time_to_sleep;
+// 	philo->num_times_to_eat = &config->num_times_to_eat;
+// }
 
-void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
-	pthread_mutex_t *write_lock)
+void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
 {
 	size_t	current_time;
-	int		i;
+	size_t	i;
 
 	current_time = get_current_time();
 	i = 0;
@@ -38,10 +37,10 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 		philos[i].write_lock = &program->write_lock;
 		philos[i].dead_lock = &program->dead_lock;
 		philos[i].meal_lock = &program->meal_lock;
-		philos[i].time_to_die = program->config->time_to_die;
-		philos[i].time_to_eat = program->config->time_to_eat;
-		philos[i].time_to_sleep = program->config->time_to_sleep;
-		philos[i].num_times_to_eat = program->config->num_times_to_eat;
+		philos[i].time_to_die = &program->config->time_to_die;
+		philos[i].time_to_eat = &program->config->time_to_eat;
+		philos[i].time_to_sleep = &program->config->time_to_sleep;
+		philos[i].num_times_to_eat = &program->config->num_times_to_eat;
 		philos[i].last_meal = current_time;
 		philos[i].start_time = current_time;
 		philos[i].meals_eaten = 0;
