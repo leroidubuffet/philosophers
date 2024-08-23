@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:08:53 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:14:49 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/23 11:30:11 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_config(t_config *config, char **argv)
 	if (argv[5])
 		config->num_times_to_eat = ft_atoi(argv[5]);
 	else
-		config->num_times_to_eat = -1;
+		config->num_times_to_eat = 0;
 }
 
 /** philos and forks are initialized in the main function for easier

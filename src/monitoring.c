@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:35:47 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/23 11:33:05 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
 }
 
 // Checks if the philosopher is dead
-int	is_philo_dead(t_philo *philo, size_t time_to_die)
+int	is_philo_dead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->meal_lock);
-	if (get_current_time() - philo->last_meal >= time_to_die
+	if (get_current_time() - philo->last_meal >= philo->config->time_to_die
 		&& philo->eating == 0)
 		return (pthread_mutex_unlock(philo->meal_lock), 1);
 	pthread_mutex_unlock(philo->meal_lock);
@@ -51,8 +51,7 @@ static int	check_any_philo_dead(t_program *program)
 	i = 0;
 	while (i < program->config->num_of_philos)
 	{
-		if (is_philo_dead(&program->philos[i],
-			*program->philos[i].time_to_die))
+		if (is_philo_dead(&program->philos[i]))
 		{
 			log_philo_status("died", &program->philos[i]);
 			pthread_mutex_lock(program->philos[0].dead_lock);
@@ -73,7 +72,7 @@ static int	check_all_philos_ate(t_program *program)
 
 	i = 0;
 	finished_eating = 0;
-	if (program->config->num_times_to_eat == -1)
+	if (program->config->num_times_to_eat == 0)
 		return (0);
 	while (i < program->config->num_of_philos)
 	{

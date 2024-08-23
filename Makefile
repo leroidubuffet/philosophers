@@ -23,7 +23,6 @@ $(NAME): $(OBJ)
 sanitize: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(SANITIZE) -o $(NAME)
 
-# Rule to compile .c files into .o files in bin/
 bin/%.o: src/%.c
 	@mkdir -p bin
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
