@@ -49,7 +49,7 @@ int	is_philo_dead(t_philo *philo)
 }
 
 // Check if any philosopher died
-static int	check_any_philo_dead(t_program *program)
+static bool	check_any_philo_dead(t_program *program)
 {
 	size_t	i;
 
@@ -62,11 +62,11 @@ static int	check_any_philo_dead(t_program *program)
 			pthread_mutex_lock(&program->dead_lock);
 			program->dead_flag = true;
 			pthread_mutex_unlock(&program->dead_lock);
-			return (1);
+			return (true);
 		}
 		i++;
 	}
-	return (0);
+	return (false);
 }
 
 // Checks if all the philosophers ate the required number of meals
