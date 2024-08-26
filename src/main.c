@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:08:53 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/23 11:30:11 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/26 12:29:27 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	init_config(t_config *config, char **argv)
 		config->num_times_to_eat = -1;
 }
 
+// void test_init_config(t_config *config)
+// {
+// 	printf("num_of_philos: %zu\n", config->num_of_philos);
+// 	printf("time_to_die: %zu\n", config->time_to_die);
+// 	printf("time_to_eat: %zu\n", config->time_to_eat);
+// 	printf("time_to_sleep: %zu\n", config->time_to_sleep);
+// 	printf("num_times_to_eat: %d\n", config->num_times_to_eat);
+// }
 /** philos and forks are initialized in the main function for easier
  * memory management
 */
@@ -37,6 +45,7 @@ int	main(int argc, char **argv)
 	if (validate_args(argc, argv) != 0)
 		return (1);
 	init_config(&config, argv);
+	//test_init_config(&config);
 	init_program(&program, philos, &config);
 	init_philos(philos, &program, forks);
 	init_forks(forks, config.num_of_philos);
