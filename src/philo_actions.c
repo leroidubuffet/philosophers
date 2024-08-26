@@ -37,6 +37,12 @@ void philo_eat(t_philo *philo)
         return;
     }
     log_philo_status("has taken a fork", philo);
+    if (philo->config->num_of_philos == 1)
+    {
+        ft_sleep(*philo->time_to_die);
+        pthread_mutex_unlock(philo->r_fork);
+        return;
+    }
     if (pthread_mutex_lock(philo->l_fork) != 0)
     {
         pthread_mutex_unlock(philo->r_fork);
@@ -44,18 +50,20 @@ void philo_eat(t_philo *philo)
         return;
     }
     log_philo_status("has taken a fork", philo);
+    if (is_philo_dead(philo))
+    {
+        pthread_mutex_unlock(philo->r_fork);
+        pthread_mutex_unlock(philo->l_fork);
+        return;
+    }
+    philo->eating = true;
     log_philo_status("is eating", philo);
     pthread_mutex_lock(philo->meal_lock);
     philo->last_meal = get_current_time();
     philo->meals_eaten++;
-    if (philo->meals_eaten == *philo->num_times_to_eat)
-    {
-        pthread_mutex_lock(philo->dead_lock);
-        *philo->dead = true;
-        pthread_mutex_unlock(philo->dead_lock);
-    }
     pthread_mutex_unlock(philo->meal_lock);
     ft_sleep(*philo->time_to_eat);
+    philo->eating = false;
     pthread_mutex_unlock(philo->l_fork);
     pthread_mutex_unlock(philo->r_fork);
 }
