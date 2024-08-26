@@ -15,6 +15,31 @@ TODO
 Fix algorithm
 Update README.md
 Comment functions
+Improve structs:
+	typedef struct s_philo
+{
+    pthread_t		thread;
+    pthread_mutex_t	*r_fork;
+    pthread_mutex_t	*l_fork;
+    size_t			last_meal;
+    size_t			start_time;
+    int				meals_eaten;
+    bool			eating;
+    bool			*dead;
+    int				id;
+    t_config		*config;
+    t_program		*program; // Added program pointer
+}					t_philo;
+
+typedef struct s_program
+{
+    t_config		*config;
+    t_philo			*philos;
+    pthread_mutex_t	dead_lock;
+    pthread_mutex_t	meal_lock;
+    pthread_mutex_t	write_lock;
+    bool			dead_flag;
+}					t_program;
 Name folder to philo/
 
 Lessons learned
