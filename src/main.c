@@ -21,7 +21,7 @@ void	init_config(t_config *config, char **argv)
 	if (argv[5])
 		config->num_times_to_eat = ft_atoi(argv[5]);
 	else
-		config->num_times_to_eat = -1;
+		config->num_times_to_eat = 0;
 }
 
 // void test_init_config(t_config *config)
