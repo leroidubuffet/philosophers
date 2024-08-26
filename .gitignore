@@ -1,16 +1,18 @@
 # Ignore all
 *
 
-# Unignore all with extentions
+# Unignore all with extensions
 !*.*
 
 # Unignore all dirs
 !*/
 
+# Unignore Makefile and gitignore
+!Makefile
+!.gitignore
+
 # Prerequisites
 *.d
-
-!Makefile
 
 # Object files
 *.o
@@ -72,3 +74,6 @@ no-die.txt
 # Local files
 .vscode/
 philo
+
+# DS_Store
+.DS_Store
