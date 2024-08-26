@@ -11,18 +11,18 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	check_philo_dead(t_philo *philo)
-{
-	pthread_mutex_lock(philo->dead_lock);
-	if (*philo->dead == 1)
-	{
-		pthread_mutex_unlock(philo->dead_lock);
-		return (1);
-	}
-	pthread_mutex_unlock(philo->dead_lock);
-	return (0);
-}
+// Previously check_philo_dead
+// int	is_philo_dead(t_philo *philo)
+// {
+// 	pthread_mutex_lock(philo->dead_lock);
+// 	if (*philo->dead == 1)
+// 	{
+// 		pthread_mutex_unlock(philo->dead_lock);
+// 		return (1);
+// 	}
+// 	pthread_mutex_unlock(philo->dead_lock);
+// 	return (0);
+// }
 
 // Wait 1 millisecond to avoid deadlock
 static void	*philo_lifecycle(void *philo_ptr)
@@ -32,7 +32,7 @@ static void	*philo_lifecycle(void *philo_ptr)
 	philo = (t_philo *)philo_ptr;
 	if (philo->id % 2 == 0)
 		ft_sleep(1);
-	while (!check_philo_dead(philo))
+	while (!is_philo_dead(philo))
 	{
 		philo_eat(philo);
 		philo_sleep(philo);

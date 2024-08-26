@@ -1,0 +1,210 @@
+diff --git a/.DS_Store b/.DS_Store
+deleted file mode 100644
+index 104b64d..0000000
+Binary files a/.DS_Store and /dev/null differ
+diff --git a/.gitignore b/.gitignore
+index 77799a2..b186a3f 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,12 +1,16 @@
+ # Ignore all
+ *
+ 
+-# Unignore all with extentions
++# Unignore all with extensions
+ !*.*
+ 
+ # Unignore all dirs
+ !*/
+ 
++# Unignore Makefile and gitignore
++!Makefile
++!.gitignore
++
+ # Prerequisites
+ *.d
+ 
+@@ -70,3 +74,6 @@ no-die.txt
+ # Local files
+ .vscode/
+ philo
++
++# DS_Store
++.DS_Store
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..e68138a
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,39 @@
++NAME = philo
++CC = cc
++CFLAGS = -Wall -Wextra -Werror
++INC = -I ./inc
++SRC = src/arg_utils.c \
++	  src/init_program.c \
++	  src/init_threads.c \
++	  src/main.c \
++	  src/monitoring.c \
++	  src/print_utils.c \
++	  src/num_utils.c \
++	  src/philo_actions.c \
++	  src/time_utils.c
++
++OBJ = $(SRC:src/%.c=bin/%.o)
++SANITIZE = -g -fsanitize=address
++
++all: $(NAME)
++
++$(NAME): $(OBJ)
++	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
++
++sanitize: $(OBJ)
++	$(CC) $(CFLAGS) $(OBJ) $(SANITIZE) -o $(NAME)
++
++bin/%.o: src/%.c
++	@mkdir -p bin
++	$(CC) $(CFLAGS) $(INC) -c $< -o $@
++
++clean:
++	rm -f $(OBJ)
++	@rmdir bin 2>/dev/null || true  # Remove bin/ if it's empty
++
++fclean: clean
++	rm -f $(NAME)
++
++re: fclean all
++
++.PHONY: all re clean fclean
+diff --git a/evaluation.txt b/evaluation.txt
+new file mode 100644
+index 0000000..3081d05
+--- /dev/null
++++ b/evaluation.txt
+@@ -0,0 +1,11 @@
++https://www.42evals.com/sheets/66ba1f5134d952a45e26557b
++
++Do not test with more than 200 philosophers.
++Do not test with time_to_die or time_to_eat or time_to_sleep set to values lower than 60 ms.
++Test 1 800 200 200. The philosopher should not eat and should die.
++Test 5 800 200 200. No philosopher should die.
++Test 5 800 200 200 7. No philosopher should die and the simulation should stop when every philosopher has eaten at least 7 times.
++Test 4 410 200 200. No philosopher should die.
++Test 4 310 200 100. One philosopher should die.
++Test with 2 philosophers and check the different times: a death delayed by more than 10 ms is unacceptable.
++Test with any values of your choice to verify all the requirements. Ensure philosophers die at the right time, that they don't steal forks, and so forth.
+diff --git a/inc/philo.h b/inc/philo.h
+index b11f52b..3cffa64 100644
+--- a/inc/philo.h
++++ b/inc/philo.h
+@@ -6,7 +6,7 @@
+ /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
+-/*   Updated: 2024/08/22 19:40:16 by airyago          ###   ########.fr       */
++/*   Updated: 2024/08/23 11:31:08 by airyago          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -30,7 +30,7 @@ typedef struct s_config
+ 	size_t			time_to_die;
+ 	size_t			time_to_eat;
+ 	size_t			time_to_sleep;
+-	int				num_times_to_eat;
++	size_t			num_times_to_eat;
+ }	t_config;
+ 
+ typedef struct s_philo
+diff --git a/notes.md b/notes.md
+index 13f9e4c..00d31eb 100644
+--- a/notes.md
++++ b/notes.md
+@@ -1,5 +1,4 @@
+-Code assistant: chatGPT
+-Milestones: input check
++Code assistant: Github Copilot
+ 
+ Testers: (not tried yet)
+ https://github.com/newlinuxbot/Philosphers-42Project-Tester
+@@ -11,3 +10,14 @@ Las posiciones de los philos son fijas? Puede haber huecos entre ellos?
+ 
+ Usage:
+ ./philo num_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
++
++TODO
++Fix algorithm
++Update README.md
++Comment functions
++
++Lessons learned
++Your structs must be clear to you
++Build before you write, then build as you write
++Modularize
++Work focused. For long hours
+diff --git a/src/main.c b/src/main.c
+index fc596af..128b1c5 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -6,7 +6,7 @@
+ /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/08/22 13:08:53 by airyago           #+#    #+#             */
+-/*   Updated: 2024/08/22 19:14:49 by airyago          ###   ########.fr       */
++/*   Updated: 2024/08/23 11:30:11 by airyago          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -21,7 +21,7 @@ void	init_config(t_config *config, char **argv)
+ 	if (argv[5])
+ 		config->num_times_to_eat = ft_atoi(argv[5]);
+ 	else
+-		config->num_times_to_eat = -1;
++		config->num_times_to_eat = 0;
+ }
+ 
+ /** philos and forks are initialized in the main function for easier
+diff --git a/src/monitoring.c b/src/monitoring.c
+index e4370b4..a091638 100644
+--- a/src/monitoring.c
++++ b/src/monitoring.c
+@@ -6,7 +6,7 @@
+ /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
+-/*   Updated: 2024/08/22 19:35:47 by airyago          ###   ########.fr       */
++/*   Updated: 2024/08/23 11:33:05 by airyago          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -33,10 +33,10 @@ void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
+ }
+ 
+ // Checks if the philosopher is dead
+-int	is_philo_dead(t_philo *philo, size_t time_to_die)
++int	is_philo_dead(t_philo *philo)
+ {
+ 	pthread_mutex_lock(philo->meal_lock);
+-	if (get_current_time() - philo->last_meal >= time_to_die
++	if (get_current_time() - philo->last_meal >= philo->config->time_to_die
+ 		&& philo->eating == 0)
+ 		return (pthread_mutex_unlock(philo->meal_lock), 1);
+ 	pthread_mutex_unlock(philo->meal_lock);
+@@ -51,8 +51,7 @@ static int	check_any_philo_dead(t_program *program)
+ 	i = 0;
+ 	while (i < program->config->num_of_philos)
+ 	{
+-		if (is_philo_dead(&program->philos[i],
+-			*program->philos[i].time_to_die))
++		if (is_philo_dead(&program->philos[i]))
+ 		{
+ 			log_philo_status("died", &program->philos[i]);
+ 			pthread_mutex_lock(program->philos[0].dead_lock);
+@@ -73,7 +72,7 @@ static int	check_all_philos_ate(t_program *program)
+ 
+ 	i = 0;
+ 	finished_eating = 0;
+-	if (program->config->num_times_to_eat == -1)
++	if (program->config->num_times_to_eat == 0)
+ 		return (0);
+ 	while (i < program->config->num_of_philos)
+ 	{

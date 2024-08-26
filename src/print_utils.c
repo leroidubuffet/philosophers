@@ -29,6 +29,8 @@ void	log_philo_status(char *str, t_philo *philo)
 	pthread_mutex_lock(philo->write_lock);
 	time = get_current_time() - philo->start_time;
 	if (!is_philo_dead(philo))
+	{
 		printf("%zu %d %s\n", time, philo->id, str);
+	}
 	pthread_mutex_unlock(philo->write_lock);
 }

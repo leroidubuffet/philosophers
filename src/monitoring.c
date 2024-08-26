@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/23 11:33:05 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/26 07:41:27 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,15 @@ void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
 // Checks if the philosopher is dead
 int	is_philo_dead(t_philo *philo)
 {
+	size_t current_time;
+
 	pthread_mutex_lock(philo->meal_lock);
-	if (get_current_time() - philo->last_meal >= philo->config->time_to_die
-		&& philo->eating == 0)
-		return (pthread_mutex_unlock(philo->meal_lock), 1);
+	current_time = get_current_time();
+	if (current_time - philo->last_meal >= philo->config->time_to_die && !philo->eating)
+	{
+		pthread_mutex_unlock(philo->meal_lock);
+		return (1);
+	}
 	pthread_mutex_unlock(philo->meal_lock);
 	return (0);
 }
@@ -54,9 +59,9 @@ static int	check_any_philo_dead(t_program *program)
 		if (is_philo_dead(&program->philos[i]))
 		{
 			log_philo_status("died", &program->philos[i]);
-			pthread_mutex_lock(program->philos[0].dead_lock);
-			*program->philos->dead = 1;
-			pthread_mutex_unlock(program->philos[0].dead_lock);
+			pthread_mutex_lock(&program->dead_lock);
+			program->dead_flag = true;
+			pthread_mutex_unlock(&program->dead_lock);
 			return (1);
 		}
 		i++;
@@ -100,8 +105,9 @@ void	*monitor_philos(void *program_ptr)
 
 	program = (t_program *)program_ptr;
 	while (1)
-		if (check_any_philo_dead(program) == 1 ||
-			check_all_philos_ate(program) == 1)
+	{
+		if (check_any_philo_dead(program) == 1 || check_all_philos_ate(program) == 1)
 			break ;
+	}
 	return (program);
 }
