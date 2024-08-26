@@ -56,15 +56,12 @@ int	init_threads(t_program *program, pthread_mutex_t *forks)
 			cleanup_resources("Thread creation error", program, forks);
 		i++;
 	}
-
 	pthread_join(thread_monitor, NULL);
-
 	i = 0;
 	while (i < program->config->num_of_philos)
 	{
 		pthread_join(program->philos[i].thread, NULL);
 		i++;
 	}
-
 	return (0);
 }

@@ -76,15 +76,16 @@ static	bool check_all_philos_ate(t_program *program)
     size_t	finished_eating;
 
     if (program->config->num_times_to_eat == 0)
-        return false;
-
+        return (false);
     finished_eating = 0;
-    for (i = 0; i < program->config->num_of_philos; i++)
+    i = 0;
+    while (i < program->config->num_of_philos)
     {
         pthread_mutex_lock(&program->meal_lock);
         if (program->philos[i].meals_eaten >= program->config->num_times_to_eat)
             finished_eating++;
         pthread_mutex_unlock(&program->meal_lock);
+		i++;
     }
 
     if (finished_eating == program->config->num_of_philos)
@@ -92,15 +93,17 @@ static	bool check_all_philos_ate(t_program *program)
         pthread_mutex_lock(&program->dead_lock);
         program->dead_flag = true;
         pthread_mutex_unlock(&program->dead_lock);
-        return true;
+        return (true);
     }
-    return false;
+    return (false);
 }
 
 // Monitor thread routine
 void *monitor_philos(void *program_ptr)
 {
-    t_program *program = (t_program *)program_ptr;
+    t_program *program;
+	
+	program = (t_program *)program_ptr;
     while (1)
     {
         if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == true)
@@ -110,8 +113,8 @@ void *monitor_philos(void *program_ptr)
             pthread_mutex_unlock(&program->dead_lock);
             break;
         }
-        usleep(1000); // Sleep for 1ms to reduce CPU usage
+        usleep(1000);
     }
-    return NULL;
+    return (NULL);
 }
 
