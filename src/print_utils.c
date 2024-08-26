@@ -28,16 +28,11 @@ void log_philo_status(char *str, t_philo *philo)
     int philo_id;
     bool is_dead;
 
-    // Get all necessary information before locking
     time = get_current_time() - philo->start_time;
     philo_id = philo->id;
-
-    // Check if philo is dead without holding any locks
     pthread_mutex_lock(philo->dead_lock);
     is_dead = *philo->dead;
     pthread_mutex_unlock(philo->dead_lock);
-
-    // Only proceed if the philosopher is not dead
     if (!is_dead)
     {
         pthread_mutex_lock(philo->write_lock);

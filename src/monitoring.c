@@ -98,15 +98,20 @@ static	bool check_all_philos_ate(t_program *program)
 }
 
 // Monitor thread routine
-void	*monitor_philos(void *program_ptr)
+void *monitor_philos(void *program_ptr)
 {
-	t_program	*program;
-
-	program = (t_program *)program_ptr;
-	while (1)
-	{
-		if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == true)
-			break ;
-	}
-	return (program);
+    t_program *program = (t_program *)program_ptr;
+    while (1)
+    {
+        if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == true)
+        {
+            pthread_mutex_lock(&program->dead_lock);
+            program->dead_flag = true;
+            pthread_mutex_unlock(&program->dead_lock);
+            break;
+        }
+        usleep(1000); // Sleep for 1ms to reduce CPU usage
+    }
+    return NULL;
 }
+

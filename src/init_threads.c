@@ -41,29 +41,26 @@ static void	*philo_lifecycle(void *philo_ptr)
 	return (philo_ptr);
 }
 
-int	init_threads(t_program *program, pthread_mutex_t *forks)
+int init_threads(t_program *program, pthread_mutex_t *forks)
 {
-	pthread_t	thread_monitor;
-	size_t		i;
+    pthread_t thread_monitor;
+    size_t i;
 
-	if (pthread_create(&thread_monitor, NULL, &monitor_philos, program) != 0)
-		cleanup_resources("Thread creation error", program, forks);
-	i = 0;
-	while (i < program->config->num_of_philos)
-	{
-		if (pthread_create(&program->philos[i].thread, NULL, &philo_lifecycle,
-				&program->philos[i]) != 0)
-			cleanup_resources("Thread creation error", program, forks);
-		i++;
-	}
-	i = 0;
-	if (pthread_join(thread_monitor, NULL) != 0)
-		cleanup_resources("Thread join error", program, forks);
-	while (i < program->config->num_of_philos)
-	{
-		if (pthread_join(program->philos[i].thread, NULL) != 0)
-			cleanup_resources("Thread join error", program, forks);
-		i++;
-	}
-	return (0);
+    if (pthread_create(&thread_monitor, NULL, &monitor_philos, program) != 0)
+        cleanup_resources("Thread creation error", program, forks);
+    
+    for (i = 0; i < program->config->num_of_philos; i++)
+    {
+        if (pthread_create(&program->philos[i].thread, NULL, &philo_lifecycle, &program->philos[i]) != 0)
+            cleanup_resources("Thread creation error", program, forks);
+    }
+
+    pthread_join(thread_monitor, NULL);
+
+    for (i = 0; i < program->config->num_of_philos; i++)
+    {
+        pthread_join(program->philos[i].thread, NULL);
+    }
+
+    return 0;
 }
