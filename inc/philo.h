@@ -30,7 +30,7 @@ typedef struct s_config
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			num_times_to_eat;
+	int			num_times_to_eat;
 }	t_config;
 
 typedef struct s_philo
@@ -44,7 +44,7 @@ typedef struct s_philo
 	size_t			*time_to_die;
 	size_t			*time_to_eat;
 	size_t			*time_to_sleep;
-	size_t			*num_times_to_eat;
+	int				*num_times_to_eat;
 	size_t			last_meal;
 	size_t			start_time;
 	int				meals_eaten;

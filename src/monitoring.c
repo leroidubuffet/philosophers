@@ -77,7 +77,7 @@ static int	check_all_philos_ate(t_program *program)
 
 	i = 0;
 	finished_eating = 0;
-	if (program->config->num_times_to_eat == 0)
+	if (program->config->num_times_to_eat == -1)
 		return (0);
 	while (i < program->config->num_of_philos)
 	{
@@ -106,7 +106,7 @@ void	*monitor_philos(void *program_ptr)
 	program = (t_program *)program_ptr;
 	while (1)
 	{
-		if (check_any_philo_dead(program) == 1 || check_all_philos_ate(program) == 1)
+		if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == 1)
 			break ;
 	}
 	return (program);
