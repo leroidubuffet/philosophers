@@ -70,32 +70,31 @@ static int	check_any_philo_dead(t_program *program)
 }
 
 // Checks if all the philosophers ate the required number of meals
-static int	check_all_philos_ate(t_program *program)
+static	bool check_all_philos_ate(t_program *program)
 {
-	size_t	i;
-	int		finished_eating;
+    size_t	i;
+    size_t	finished_eating;
 
-	i = 0;
-	finished_eating = 0;
-	if (program->config->num_times_to_eat == -1)
-		return (0);
-	while (i < program->config->num_of_philos)
-	{
-		pthread_mutex_lock(program->philos[i].meal_lock);
-		if (program->philos[i].meals_eaten
-			>= (int)*program->philos[i].num_times_to_eat)
-			finished_eating++;
-		pthread_mutex_unlock(program->philos[i].meal_lock);
-		i++;
-	}
-	if (finished_eating == (int)program->config->num_of_philos)
-	{
-		pthread_mutex_lock(&program->dead_lock);
-		*program->philos->dead = 1;
-		pthread_mutex_unlock(&program->dead_lock);
-		return (1);
-	}
-	return (0);
+    if (program->config->num_times_to_eat == 0)
+        return false;
+
+    finished_eating = 0;
+    for (i = 0; i < program->config->num_of_philos; i++)
+    {
+        pthread_mutex_lock(&program->meal_lock);
+        if (program->philos[i].meals_eaten >= program->config->num_times_to_eat)
+            finished_eating++;
+        pthread_mutex_unlock(&program->meal_lock);
+    }
+
+    if (finished_eating == program->config->num_of_philos)
+    {
+        pthread_mutex_lock(&program->dead_lock);
+        program->dead_flag = true;
+        pthread_mutex_unlock(&program->dead_lock);
+        return true;
+    }
+    return false;
 }
 
 // Monitor thread routine
@@ -106,7 +105,7 @@ void	*monitor_philos(void *program_ptr)
 	program = (t_program *)program_ptr;
 	while (1)
 	{
-		if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == 1)
+		if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == true)
 			break ;
 	}
 	return (program);
