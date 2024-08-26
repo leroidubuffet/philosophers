@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:17:03 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:20:54 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:21:09 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,30 @@ static void	*philo_lifecycle(void *philo_ptr)
 	return (philo_ptr);
 }
 
-int init_threads(t_program *program, pthread_mutex_t *forks)
+int	init_threads(t_program *program, pthread_mutex_t *forks)
 {
-    pthread_t thread_monitor;
-    size_t i;
+	pthread_t	thread_monitor;
+	size_t		i;
 
-    if (pthread_create(&thread_monitor, NULL, &monitor_philos, program) != 0)
-        cleanup_resources("Thread creation error", program, forks);
-    
-    for (i = 0; i < program->config->num_of_philos; i++)
-    {
-        if (pthread_create(&program->philos[i].thread, NULL, &philo_lifecycle, &program->philos[i]) != 0)
-            cleanup_resources("Thread creation error", program, forks);
-    }
+	i = 0;
+	if (pthread_create(&thread_monitor, NULL, &monitor_philos, program) != 0)
+		cleanup_resources("Thread creation error", program, forks);
+	while (i < program->config->num_of_philos)
+	{
+		if (pthread_create(&program->philos[i].thread, NULL,
+			&philo_lifecycle, &program->philos[i]) != 0)
+			cleanup_resources("Thread creation error", program, forks);
+		i++;
+	}
 
-    pthread_join(thread_monitor, NULL);
+	pthread_join(thread_monitor, NULL);
 
-    for (i = 0; i < program->config->num_of_philos; i++)
-    {
-        pthread_join(program->philos[i].thread, NULL);
-    }
+	i = 0;
+	while (i < program->config->num_of_philos)
+	{
+		pthread_join(program->philos[i].thread, NULL);
+		i++;
+	}
 
-    return 0;
+	return (0);
 }
