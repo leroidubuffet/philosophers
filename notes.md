@@ -15,6 +15,7 @@ TODO
 Fix algorithm
 Update README.md
 Comment functions
+Name folder to philo/
 
 Lessons learned
 Your structs must be clear to you
