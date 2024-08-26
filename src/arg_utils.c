@@ -37,6 +37,7 @@ static int	is_positive_integer(const char *str)
  *
  * @param argc The number of command line arguments.
  * @param argv An array of strings representing the command line arguments.
+ * if number_times_to_eat is 0 the argument will be considered invalid
  * @return An integer indicating the success or failure of the validation.
  */
 int	validate_args(int argc, char **argv)
