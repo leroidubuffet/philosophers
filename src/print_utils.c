@@ -22,15 +22,26 @@ int		ft_strlen(const char *str)
 	return (len);
 }
 
-void	log_philo_status(char *str, t_philo *philo)
+void log_philo_status(char *str, t_philo *philo)
 {
-	size_t	time;
+    size_t time;
+    int philo_id;
+    bool is_dead;
 
-	pthread_mutex_lock(philo->write_lock);
-	time = get_current_time() - philo->start_time;
-	if (!is_philo_dead(philo))
-	{
-		printf("%zu %d %s\n", time, philo->id, str);
-	}
-	pthread_mutex_unlock(philo->write_lock);
+    // Get all necessary information before locking
+    time = get_current_time() - philo->start_time;
+    philo_id = philo->id;
+
+    // Check if philo is dead without holding any locks
+    pthread_mutex_lock(philo->dead_lock);
+    is_dead = *philo->dead;
+    pthread_mutex_unlock(philo->dead_lock);
+
+    // Only proceed if the philosopher is not dead
+    if (!is_dead)
+    {
+        pthread_mutex_lock(philo->write_lock);
+        printf("%zu %d %s\n", time, philo_id, str);
+        pthread_mutex_unlock(philo->write_lock);
+    }
 }
