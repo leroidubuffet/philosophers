@@ -6,7 +6,7 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/23 11:31:08 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/26 12:28:48 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_config
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	int			num_times_to_eat;
+	int				num_times_to_eat;
 }	t_config;
 
 typedef struct s_philo
@@ -50,7 +50,7 @@ typedef struct s_philo
 	int				meals_eaten;
 	bool			eating;
 	bool			*dead;
-	char			id;
+	int			id;
 	t_config		*config;
 }					t_philo;
 
