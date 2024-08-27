@@ -39,7 +39,8 @@ int	is_philo_dead(t_philo *philo)
 
 	pthread_mutex_lock(philo->meal_lock);
 	current_time = get_current_time();
-	if (current_time - philo->last_meal >= philo->config->time_to_die && !philo->eating)
+	if (current_time - philo->last_meal
+		>= philo->config->time_to_die && !philo->eating)
 	{
 		pthread_mutex_unlock(philo->meal_lock);
 		return (1);
@@ -70,48 +71,50 @@ static bool	check_any_philo_dead(t_program *program)
 }
 
 // Checks if all the philosophers ate the required number of meals
-static	bool check_all_philos_ate(t_program *program)
+static bool	check_all_philos_ate(t_program *program)
 {
-    size_t	i;
-    size_t	finished_eating;
+	size_t	i;
+	size_t	finished_eating;
 
-    if (program->config->num_times_to_eat == 0)
-        return false;
-
-    finished_eating = 0;
-    for (i = 0; i < program->config->num_of_philos; i++)
-    {
-        pthread_mutex_lock(&program->meal_lock);
-        if (program->philos[i].meals_eaten >= program->config->num_times_to_eat)
-            finished_eating++;
-        pthread_mutex_unlock(&program->meal_lock);
-    }
-
-    if (finished_eating == program->config->num_of_philos)
-    {
-        pthread_mutex_lock(&program->dead_lock);
-        program->dead_flag = true;
-        pthread_mutex_unlock(&program->dead_lock);
-        return true;
-    }
-    return false;
+	i = 0;
+	if (program->config->num_times_to_eat == 0)
+		return (false);
+	finished_eating = 0;
+	while (i < program->config->num_of_philos)
+	{
+		pthread_mutex_lock(&program->meal_lock);
+		if (program->philos[i].meals_eaten >= program->config->num_times_to_eat)
+			finished_eating++;
+		pthread_mutex_unlock(&program->meal_lock);
+		i++;
+	}
+	if (finished_eating == program->config->num_of_philos)
+	{
+		pthread_mutex_lock(&program->dead_lock);
+		program->dead_flag = true;
+		pthread_mutex_unlock(&program->dead_lock);
+		return (true);
+	}
+	return (false);
 }
 
 // Monitor thread routine
-void *monitor_philos(void *program_ptr)
+void	*monitor_philos(void *program_ptr)
 {
-    t_program *program = (t_program *)program_ptr;
-    while (1)
-    {
-        if (check_any_philo_dead(program) == true || check_all_philos_ate(program) == true)
-        {
-            pthread_mutex_lock(&program->dead_lock);
-            program->dead_flag = true;
-            pthread_mutex_unlock(&program->dead_lock);
-            break;
-        }
-        usleep(1000); // Sleep for 1ms to reduce CPU usage
-    }
-    return NULL;
+	t_program	*program;
+
+	program = (t_program *)program_ptr;
+	while (1)
+	{
+		if (check_any_philo_dead(program) == true
+			|| check_all_philos_ate(program) == true)
+		{
+			pthread_mutex_lock(&program->dead_lock);
+			program->dead_flag = true;
+			pthread_mutex_unlock(&program->dead_lock);
+			break ;
+		}
+	}
+	return (NULL);
 }
 
