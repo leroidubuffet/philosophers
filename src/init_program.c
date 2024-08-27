@@ -12,34 +12,34 @@
 
 #include "philo.h"
 
-void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
+static void	init_single_philo(t_philo *philo, t_program *program,
+	pthread_mutex_t *forks)
 {
 	size_t	current_time;
+	size_t	num_of_philos;
+
+	num_of_philos = program->config->num_of_philos;
+	current_time = get_current_time();
+	philo->r_fork = &forks[(philo->id - 2 + num_of_philos) % num_of_philos];
+	philo->l_fork = &forks[(philo->id - 1) % num_of_philos];
+	philo->program = program;
+	philo->config = program->config;
+	philo->last_meal = current_time;
+	philo->start_time = current_time;
+	philo->meals_eaten = 0;
+	philo->eating = false;
+	philo->dead = &program->dead_flag;
+}
+
+void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
+{
 	size_t	i;
 
-	current_time = get_current_time();
 	i = 0;
 	while (i < program->config->num_of_philos)
 	{
-		if (i == 0)
-			philos[i].r_fork = &forks[program->config->num_of_philos - 1];
-		else
-			philos[i].r_fork = &forks[i - 1];
-		philos[i].l_fork = &forks[i];
-		philos[i].write_lock = &program->write_lock;
-		philos[i].dead_lock = &program->dead_lock;
-		philos[i].meal_lock = &program->meal_lock;
-		philos[i].time_to_die = &program->config->time_to_die;
-		philos[i].time_to_eat = &program->config->time_to_eat;
-		philos[i].time_to_sleep = &program->config->time_to_sleep;
-		philos[i].num_times_to_eat = &program->config->num_times_to_eat;
-		philos[i].last_meal = current_time;
-		philos[i].start_time = current_time;
-		philos[i].meals_eaten = 0;
-		philos[i].eating = false;
-		philos[i].dead = &program->dead_flag;
 		philos[i].id = i + 1;
-		philos[i].config = program->config;
+		init_single_philo(&philos[i], program, forks);
 		i++;
 	}
 }
