@@ -24,18 +24,6 @@ void	init_config(t_config *config, char **argv)
 		config->num_times_to_eat = 0;
 }
 
-// void	print_philos(t_philo *philos, t_config *config)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (i < config->num_of_philos)
-// 	{
-// 		printf("Philosopher %zu has eaten %d times\n", i + 1, philos[i].eat_count);
-// 		i++;
-// 	}
-// }
-
 int	main(int argc, char **argv)
 {
 	t_program		program;
