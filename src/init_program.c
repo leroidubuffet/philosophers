@@ -12,14 +12,6 @@
 
 #include "philo.h"
 
-// static void	get_input(t_philo *philo, t_config *config)
-// {
-// 	philo->time_to_die = &config->time_to_die;
-// 	philo->time_to_eat = &config->time_to_eat;
-// 	philo->time_to_sleep = &config->time_to_sleep;
-// 	philo->num_times_to_eat = &config->num_times_to_eat;
-// }
-
 void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
 {
 	size_t	current_time;
