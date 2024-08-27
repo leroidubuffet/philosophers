@@ -35,17 +35,17 @@ void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
 // Checks if the philosopher is dead
 int	is_philo_dead(t_philo *philo)
 {
-	size_t current_time;
+	size_t	current_time;
 
-	pthread_mutex_lock(philo->meal_lock);
+	pthread_mutex_lock(&philo->program->meal_lock);
 	current_time = get_current_time();
 	if (current_time - philo->last_meal
 		>= philo->config->time_to_die && !philo->eating)
 	{
-		pthread_mutex_unlock(philo->meal_lock);
+		pthread_mutex_unlock(&philo->program->meal_lock);
 		return (1);
 	}
-	pthread_mutex_unlock(philo->meal_lock);
+	pthread_mutex_unlock(&philo->program->meal_lock);
 	return (0);
 }
 
