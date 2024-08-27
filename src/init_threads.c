@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-// Previously check_philo_dead
+
 static int	check_philo_died(t_philo *philo)
 {
-	pthread_mutex_lock(philo->dead_lock);
+	pthread_mutex_lock(&philo->program->dead_lock);
 	if (*philo->dead == true)
 	{
-		pthread_mutex_unlock(philo->dead_lock);
+		pthread_mutex_unlock(&philo->program->dead_lock);
 		return (1);
 	}
-	pthread_mutex_unlock(philo->dead_lock);
+	pthread_mutex_unlock(&philo->program->dead_lock);
 	return (0);
 }
 
@@ -52,19 +52,16 @@ int	init_threads(t_program *program, pthread_mutex_t *forks)
 	while (i < program->config->num_of_philos)
 	{
 		if (pthread_create(&program->philos[i].thread, NULL,
-			&philo_lifecycle, &program->philos[i]) != 0)
+				&philo_lifecycle, &program->philos[i]) != 0)
 			cleanup_resources("Thread creation error", program, forks);
 		i++;
 	}
-
 	pthread_join(thread_monitor, NULL);
-
 	i = 0;
 	while (i < program->config->num_of_philos)
 	{
 		pthread_join(program->philos[i].thread, NULL);
 		i++;
 	}
-
 	return (0);
 }
