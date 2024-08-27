@@ -24,6 +24,8 @@
 // 300 philosophers is the maximum number of philosophers in the evaluation
 # define PHILO_MAX 300
 
+typedef struct s_philo t_philo;
+
 typedef struct s_config
 {
 	size_t			num_of_philos;
@@ -32,6 +34,16 @@ typedef struct s_config
 	size_t			time_to_sleep;
 	int				num_times_to_eat;
 }	t_config;
+
+typedef struct s_program
+{
+	t_config		*config;
+	t_philo			*philos;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;
+	bool			dead_flag;
+}					t_program;
 
 typedef struct s_philo
 {
@@ -47,16 +59,6 @@ typedef struct s_philo
 	bool			eating;
 	bool			*dead;
 }					t_philo;
-
-typedef struct s_program
-{
-	t_config		*config;
-	t_philo			*philos;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	write_lock;
-	bool			dead_flag;
-}					t_program;
 
 // Initialization
 void	init_program(t_program *program, t_philo *philos, t_config *config);
