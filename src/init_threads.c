@@ -41,6 +41,22 @@ static void	*philo_lifecycle(void *philo_ptr)
 	return (philo_ptr);
 }
 
+// static void	print_meals_eaten(t_program *program)
+// {
+// 	size_t	i;
+
+// 	printf("Meals eaten by each philosopher:\n");
+// 	i = 0;
+// 	while (i < program->config->num_of_philos)
+// 	{
+// 		pthread_mutex_lock(&program->meal_lock);
+// 		printf("Philosopher %zu ate %d times\n", i + 1,
+// 			program->philos[i].meals_eaten);
+// 		pthread_mutex_unlock(&program->meal_lock);
+// 		i++;
+// 	}
+// }
+
 int	init_threads(t_program *program, pthread_mutex_t *forks)
 {
 	pthread_t	thread_monitor;
