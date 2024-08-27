@@ -11,6 +11,7 @@ TODO
 Fix algorithm
 Update README.md
 Comment functions
+print meals eaten
 Improve structs:
 	typedef struct s_philo
 {
