@@ -6,25 +6,41 @@
 /*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:17:03 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/26 15:21:09 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/27 16:16:38 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_philo_died(t_philo *philo)
+/**
+ * Checks if a philosopher has died.
+ *
+ * @param philo The philosopher to check.
+ * @return Returns an integer indicating if the philosopher has died.
+ */
+static bool	check_philo_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->program->dead_lock);
 	if (*philo->dead == true)
 	{
 		pthread_mutex_unlock(&philo->program->dead_lock);
-		return (1);
+		return (true);
 	}
 	pthread_mutex_unlock(&philo->program->dead_lock);
-	return (0);
+	return (false);
 }
 
-// Wait 1 millisecond to avoid deadlock
+/**
+ * @brief Function that represents the lifecycle of a philosopher.
+ *
+ * This function is responsible for executing the lifecycle of a philosopher.
+ * It takes a pointer to a philosopher as an argument and returns a void pointer.
+ * Wait 1 millisecond to avoid deadlock
+ * if the philosopher is even numbered.
+ *
+ * @param philo_ptr A pointer to a philosopher object.
+ * @return void* A void pointer.
+ */
 static void	*philo_lifecycle(void *philo_ptr)
 {
 	t_philo	*philo;
@@ -41,6 +57,7 @@ static void	*philo_lifecycle(void *philo_ptr)
 	return (philo_ptr);
 }
 
+// Uncomment to print the number of meals eaten by each philosopher
 // static void	print_meals_eaten(t_program *program)
 // {
 // 	size_t	i;
@@ -57,6 +74,13 @@ static void	*philo_lifecycle(void *philo_ptr)
 // 	}
 // }
 
+/**
+ * Initializes the threads for the program.
+ *
+ * @param program A pointer to the program structure.
+ * @param forks   An array of mutexes representing the forks.
+ * @return        Returns 0 on success, -1 on failure.
+ */
 int	init_threads(t_program *program, pthread_mutex_t *forks)
 {
 	pthread_t	thread_monitor;
