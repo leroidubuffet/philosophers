@@ -24,17 +24,18 @@ void	init_config(t_config *config, char **argv)
 		config->num_times_to_eat = 0;
 }
 
-// void test_init_config(t_config *config)
+// void	print_philos(t_philo *philos, t_config *config)
 // {
-// 	printf("num_of_philos: %zu\n", config->num_of_philos);
-// 	printf("time_to_die: %zu\n", config->time_to_die);
-// 	printf("time_to_eat: %zu\n", config->time_to_eat);
-// 	printf("time_to_sleep: %zu\n", config->time_to_sleep);
-// 	printf("num_times_to_eat: %d\n", config->num_times_to_eat);
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (i < config->num_of_philos)
+// 	{
+// 		printf("Philosopher %zu has eaten %d times\n", i + 1, philos[i].eat_count);
+// 		i++;
+// 	}
 // }
-/** philos and forks are initialized in the main function for easier
- * memory management
-*/
+
 int	main(int argc, char **argv)
 {
 	t_program		program;
@@ -45,7 +46,6 @@ int	main(int argc, char **argv)
 	if (validate_args(argc, argv) != 0)
 		return (1);
 	init_config(&config, argv);
-	//test_init_config(&config);
 	init_program(&program, philos, &config);
 	init_philos(philos, &program, forks);
 	init_forks(forks, config.num_of_philos);
