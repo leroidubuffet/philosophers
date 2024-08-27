@@ -12,40 +12,35 @@
 
 #include "philo.h"
 
-// Dummy function for test_init.c
-// size_t	get_current_time(void)
-// {
-// 	return (1000);
-// }
-
-size_t get_current_time(void)
+size_t	get_current_time(void)
 {
-    struct timeval time;
+	struct timeval	time;
 
-    if (gettimeofday(&time, NULL) == -1)
-    {
-        write(2, "gettimeofday() error\n", 22);
-        return (size_t)-1;
-    }
-    return (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	if (gettimeofday(&time, NULL) == -1)
+	{
+		write(2, "gettimeofday() error\n", 22);
+		return ((size_t) - 1);
+	}
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-int ft_sleep(size_t milliseconds)
+int	ft_sleep(size_t milliseconds)
 {
-    size_t start, current;
-    struct timespec ts;
-    ts.tv_sec = 0;
-    ts.tv_nsec = 100000; // 0.1ms
+	size_t			start;
+	size_t			current;
+	struct timespec	ts;
 
-    start = get_current_time();
-    while (1)
-    {
-        current = get_current_time();
-        if (current == (size_t)-1)
-            return -1;
-        if ((current - start) >= milliseconds)
-            break;
-        nanosleep(&ts, NULL);
-    }
-    return 0;
+	ts.tv_sec = 0;
+	ts.tv_nsec = 100000;
+	start = get_current_time();
+	while (1)
+	{
+		current = get_current_time();
+		if (current == (size_t) - 1)
+			return (-1);
+		if ((current - start) >= milliseconds)
+			break ;
+		nanosleep(&ts, NULL);
+	}
+	return (0);
 }
