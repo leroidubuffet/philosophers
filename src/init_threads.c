@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:17:03 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 17:58:07 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:31:40 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	*philo_lifecycle(void *philo_ptr)
 	pthread_mutex_lock(&philo->program->start_lock);
 	pthread_mutex_unlock(&philo->program->start_lock);
 	if (philo->id % 2 == 0)
-		ft_sleep(50);
+		ft_sleep(10);
 	while (!check_philo_died(philo))
 	{
 		philo_think(philo);
