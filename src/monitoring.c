@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 12:42:14 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:13:23 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	is_philo_dead(t_philo *philo)
 	current_time = get_current_time();
 	last_meal_time = philo->last_meal;
 	pthread_mutex_unlock(&philo->program->meal_lock);
-	if (current_time - last_meal_time >= philo->config->time_to_die + 40)
+	if (current_time - last_meal_time >= philo->config->time_to_die + 0)
 	{
 		return (1);
 	}
