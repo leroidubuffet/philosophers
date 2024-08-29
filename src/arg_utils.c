@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   arg_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 13:38:51 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 10:49:18 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * Checks if a given string represents a positive integer.
+ *
+ * @param str The string to be checked.
+ * @return 1 if the string represents a positive integer, 0 otherwise.
+ */
 static int	is_positive_integer(const char *str)
 {
 	int	i;
