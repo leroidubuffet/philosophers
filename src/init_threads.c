@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_threads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:17:03 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/27 16:16:38 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 17:09:06 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	*philo_lifecycle(void *philo_ptr)
 
 	philo = (t_philo *)philo_ptr;
 	if (philo->id % 2 == 0)
-		ft_sleep(1);
+		ft_sleep(50);
 	while (!check_philo_died(philo))
 	{
 		philo_eat(philo);
