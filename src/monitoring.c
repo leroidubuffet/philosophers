@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 11:00:47 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:42:14 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ int	is_philo_dead(t_philo *philo)
 	return (0);
 }
 
-// Check if any philosopher died
+/**
+ * Checks if any philosopher is dead.
+ *
+ * @param program A pointer to the program structure.
+ * @return `true` if any philosopher is dead, `false` otherwise.
+ */
 static bool	check_any_philo_dead(t_program *program)
 {
 	size_t	i;
@@ -89,7 +94,15 @@ static bool	check_any_philo_dead(t_program *program)
 	return (false);
 }
 
-// Checks if all the philosophers ate the required number of meals
+/**
+ * Checks if all philosophers have finished eating.
+ *
+ * This function takes a pointer to a `t_program` structure representing
+ * the program and checks if all philosophers have finished eating.
+ *
+ * @param program A pointer to the program structure.
+ * @return true if all philosophers have finished eating, false otherwise.
+ */
 static bool	check_all_philos_ate(t_program *program)
 {
 	size_t	i;
@@ -117,7 +130,12 @@ static bool	check_all_philos_ate(t_program *program)
 	return (false);
 }
 
-// Monitor thread routine
+/**
+ * Monitors the philosophers' activities.
+ *
+ * @param program_ptr A pointer to the program structure.
+ * @return void
+ */
 void	*monitor_philos(void *program_ptr)
 {
 	t_program	*program;
