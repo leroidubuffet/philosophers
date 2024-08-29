@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 11:19:45 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:32:47 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-// 300 philosophers is the maximum number of philosophers in the evaluation
 # define PHILO_MAX 300
 
 typedef struct s_philo	t_philo;
