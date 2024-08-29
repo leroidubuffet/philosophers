@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/26 07:41:27 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 11:00:47 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * Cleans up the resources used by the program.
+ *
+ * @param str The string parameter.
+ * @param program The pointer to the program structure.
+ * @param forks The pointer to the array of mutex locks representing the forks.
+ */
 void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
 {
 	size_t	i;
@@ -32,20 +39,29 @@ void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
 	}
 }
 
-// Checks if the philosopher is dead
-// Added time buffer to account for time it takes to print
-// And timing inconsistencies due to different execution speeds
+/**
+ * Checks if a philosopher is dead.
+ *
+ * This function takes a pointer to a `t_philo` structure representing 
+ * a philosopher and checks if the philosopher is dead. 
+ * It returns an integer value indicating whether the philosopher 
+ * is dead or not.
+ * Added time buffer to account for time it takes to print
+ * and timing inconsistencies due to different execution speeds.
+ *
+ * @param philo A pointer to the philosopher to check.
+ * @return 1 if the philosopher is dead, 0 otherwise.
+ */
 int	is_philo_dead(t_philo *philo)
 {
-	size_t current_time;
-	size_t last_meal_time;
+	size_t	current_time;
+	size_t	last_meal_time;
 
 	pthread_mutex_lock(&philo->program->meal_lock);
 	current_time = get_current_time();
 	last_meal_time = philo->last_meal;
 	pthread_mutex_unlock(&philo->program->meal_lock);
-
-	if (current_time - last_meal_time >= philo->config->time_to_die + 50)
+	if (current_time - last_meal_time >= philo->config->time_to_die + 40)
 	{
 		return (1);
 	}
@@ -120,4 +136,3 @@ void	*monitor_philos(void *program_ptr)
 	}
 	return (NULL);
 }
-
