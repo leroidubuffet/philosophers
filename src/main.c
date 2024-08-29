@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:08:53 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/28 14:33:11 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 10:56:11 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * Initializes the configuration struct with the provided arguments.
+ *
+ * @param config The configuration struct to be initialized.
+ * @param argv The command line arguments.
+ */
 void	init_config(t_config *config, char **argv)
 {
 	config->num_of_philos = ft_atoi(argv[1]);
