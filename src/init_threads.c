@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:17:03 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 17:09:06 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:31:19 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void	*philo_lifecycle(void *philo_ptr)
 		ft_sleep(50);
 	while (!check_philo_died(philo))
 	{
+		philo_think(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
-		philo_think(philo);
 	}
 	return (philo_ptr);
 }
