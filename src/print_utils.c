@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:09:11 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/22 19:26:46 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 11:05:47 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	ft_strlen(const char *str)
 	return (len);
 }
 
+/**
+ * Logs the status of a philosopher.
+ *
+ * @param str The string to be logged.
+ * @param philo A pointer to the philosopher struct.
+ */
 void	log_philo_status(char *str, t_philo *philo)
 {
 	size_t	time;
