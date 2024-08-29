@@ -3,17 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   init_program.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:17:29 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/26 12:30:30 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 10:54:04 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_single_philo(t_philo *philo, t_program *program,
-	pthread_mutex_t *forks)
+/**
+ * Initializes a single philosopher.
+ * 
+ * @param philo     Pointer to the philosopher to be initialized.
+ * @param program   Pointer to the program structure.
+ * @param forks     Array of mutexes representing the forks.
+ */
+static void	init_single_philo(t_philo *philo, t_program *program, \
+pthread_mutex_t *forks)
 {
 	size_t	current_time;
 	size_t	num_of_philos;
@@ -31,6 +38,13 @@ static void	init_single_philo(t_philo *philo, t_program *program,
 	philo->dead = &program->dead_flag;
 }
 
+/**
+ * Initializes the philosophers and their resources.
+ *
+ * @param philos The array of philosophers.
+ * @param program The program configuration.
+ * @param forks The array of forks (mutexes).
+ */
 void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
 {
 	size_t	i;
@@ -44,6 +58,12 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
 	}
 }
 
+/**
+ * Initializes the forks (mutexes).
+ *
+ * @param forks     The array of forks (mutexes).
+ * @param philo_num The number of philosophers.
+ */
 void	init_forks(pthread_mutex_t *forks, int philo_num)
 {
 	int	i;
@@ -56,6 +76,14 @@ void	init_forks(pthread_mutex_t *forks, int philo_num)
 	}
 }
 
+/**
+ * Initializes the program structure with the given philosopher, 
+ * configuration, and locks.
+ *
+ * @param program The program structure to initialize.
+ * @param philos The array of philosophers.
+ * @param config The configuration for the program.
+ */
 void	init_program(t_program *program, t_philo *philos, t_config *config)
 {
 	program->dead_flag = false;
