@@ -13,7 +13,7 @@ SRC = src/arg_utils.c \
 	  src/time_utils.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
-SANITIZE = -g -fsanitize=address
+SANITIZE = -g -fsanitize=thread
 
 all: $(NAME)
 

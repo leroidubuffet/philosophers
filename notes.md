@@ -1,5 +1,9 @@
 Code assistant: Github Copilot
 
+Corrector Samuel
+	pthread_mutex_init(&program->write_lock, NULL);
+
+
 Testers: (not tried yet)
 https://github.com/newlinuxbot/Philosphers-42Project-Tester
 https://github.com/nesvoboda/socrates.git
@@ -10,15 +14,20 @@ Usage:
 TODO
 Update README.md
 Comment functions
+booleans
 
-Lessons learned
+# Lessons learned
 Your structs and functions must be clear to you. Very clear
 Build before you write, then build as you write
 Modularize
 Work focused. For long hours
-You do't need to push every commit
+You don't need to push every commit
+Own the program. All the decisions must be yours
+
+TSAN_OPTIONS=second_deadlock_stack=1 ./philo 2 310 200 200
 
 time buffer in monitoring
+usleep at the end of ft_sleep y get_current_time
 
 Do not test with more than 200 philosophers.
 Do not test with time_to_die or time_to_eat or time_to_sleep set to values lower than 60 ms.

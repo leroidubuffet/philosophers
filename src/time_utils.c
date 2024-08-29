@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:43:32 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 11:18:28 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:39:26 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int	ft_sleep(size_t milliseconds)
 			break ;
 		nanosleep(&ts, NULL);
 	}
+	// usleep(700);
 	return (0);
 }

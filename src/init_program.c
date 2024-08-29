@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:17:29 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 10:54:04 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:50:18 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ pthread_mutex_t *forks)
 	philo->program = program;
 	philo->config = program->config;
 	philo->last_meal = current_time;
-	philo->start_time = current_time;
 	philo->meals_eaten = 0;
 	philo->eating = false;
 	philo->dead = &program->dead_flag;
@@ -50,12 +49,15 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks)
 	size_t	i;
 
 	i = 0;
+	pthread_mutex_lock(&program->start_lock);
 	while (i < program->config->num_of_philos)
 	{
 		philos[i].id = i + 1;
 		init_single_philo(&philos[i], program, forks);
 		i++;
 	}
+	philos->start_time = get_current_time();
+	pthread_mutex_unlock(&program->start_lock);
 }
 
 /**
@@ -88,6 +90,7 @@ void	init_program(t_program *program, t_philo *philos, t_config *config)
 {
 	program->dead_flag = false;
 	program->philos = philos;
+	pthread_mutex_init(&program->start_lock, NULL);
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->meal_lock, NULL);

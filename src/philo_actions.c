@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:27:48 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 11:20:29 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:54:37 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	philo_think(t_philo *philo)
 // Sleep routine function
 void	philo_sleep(t_philo *philo)
 {
+	if(!philo->program->dead_flag)
+		return ;
 	log_philo_status("is sleeping", philo);
 	ft_sleep(philo->config->time_to_sleep);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_threads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:17:03 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/27 16:16:38 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 14:45:54 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ static bool	check_philo_died(t_philo *philo)
  *
  * This function is responsible for executing the lifecycle of a philosopher.
  * It takes a pointer to a philosopher as an argument and returns a void pointer.
- * Wait 1 millisecond to avoid deadlock
- * if the philosopher is even numbered.
+ * Wait 1 millisecond to avoid deadlock if the philosopher is even numbered.
  *
  * @param philo_ptr A pointer to a philosopher object.
  * @return void* A void pointer.
@@ -46,6 +45,8 @@ static void	*philo_lifecycle(void *philo_ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_ptr;
+	pthread_mutex_lock(&philo->program->start_lock);
+	pthread_mutex_unlock(&philo->program->start_lock);
 	if (philo->id % 2 == 0)
 		ft_sleep(1);
 	while (!check_philo_died(philo))
@@ -58,6 +59,7 @@ static void	*philo_lifecycle(void *philo_ptr)
 }
 
 // Uncomment to print the number of meals eaten by each philosopher
+// and call the function in the init_threads function line 106
 // static void	print_meals_eaten(t_program *program)
 // {
 // 	size_t	i;

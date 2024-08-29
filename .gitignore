@@ -70,7 +70,6 @@ tests.sh
 
 # Local files
 .vscode/
-philo
 
 # DS_Store
 .DS_Store

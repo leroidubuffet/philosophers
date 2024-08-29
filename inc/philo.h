@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 12:32:47 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:49:38 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_program
 {
 	t_config		*config;
 	t_philo			*philos;
+	pthread_mutex_t	start_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
@@ -47,12 +48,12 @@ typedef struct s_program
 typedef struct s_philo
 {
 	pthread_t		thread;
+	size_t			start_time;
 	t_program		*program;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	t_config		*config;
 	size_t			last_meal;
-	size_t			start_time;
 	int				id;
 	int				meals_eaten;
 	bool			eating;

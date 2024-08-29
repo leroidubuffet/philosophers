@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:50:06 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 12:42:14 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:06:18 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	cleanup_resources(char *str, t_program *program, pthread_mutex_t *forks)
 		write(2, str, ft_strlen(str));
 		write(2, "\n", 1);
 	}
+	pthread_mutex_destroy(&program->start_lock);
 	pthread_mutex_destroy(&program->write_lock);
 	pthread_mutex_destroy(&program->meal_lock);
 	pthread_mutex_destroy(&program->dead_lock);
@@ -61,7 +62,7 @@ int	is_philo_dead(t_philo *philo)
 	current_time = get_current_time();
 	last_meal_time = philo->last_meal;
 	pthread_mutex_unlock(&philo->program->meal_lock);
-	if (current_time - last_meal_time >= philo->config->time_to_die + 40)
+	if (current_time - last_meal_time >= philo->config->time_to_die + 10)
 	{
 		return (1);
 	}
