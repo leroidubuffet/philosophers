@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:27:48 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/26 07:27:59 by airyago          ###   ########.fr       */
+/*   Updated: 2024/08/29 11:04:35 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,20 @@ void	philo_sleep(t_philo *philo)
 	log_philo_status("is sleeping", philo);
 	ft_sleep(philo->config->time_to_sleep);
 }
+{
+	log_philo_status("is sleeping", philo);
+	ft_sleep(philo->config->time_to_sleep);
+}
 
-//** If there is only one philosopher, we unlock the fork and
-//** wait until the philosopher dies */
+/**
+ * @brief Updates the meal information for a philosopher.
+ *
+ * This function is responsible for updating the meal information 
+ * for a philosopher.
+ * If there is only one philosopher, 
+ * we unlock the fork and wait until the philosopher dies.
+ * @param philo A pointer to the philosopher structure.
+ */
 static void	update_meal_info(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->program->meal_lock);
@@ -35,6 +46,16 @@ static void	update_meal_info(t_philo *philo)
 	pthread_mutex_unlock(&philo->program->meal_lock);
 }
 
+/**
+ * Takes the forks for a philosopher.
+ *
+ * This function is responsible for a philosopher taking the forks
+ * in order to start eating. It ensures that the philosopher can only
+ * take the forks if they are both available.
+ *
+ * @param philo A pointer to the philosopher struct.
+ * @return Returns 0 if the forks were successfully taken, -1 otherwise.
+ */
 static int	take_forks(t_philo *philo)
 {
 	if (pthread_mutex_lock(philo->r_fork) != 0)
@@ -59,6 +80,11 @@ static int	take_forks(t_philo *philo)
 	return (1);
 }
 
+/**
+ * @brief Function to perform the eating action for a philosopher.
+ *
+ * @param philo A pointer to the philosopher structure.
+ */
 void	philo_eat(t_philo *philo)
 {
 	if (is_philo_dead(philo) || !take_forks(philo))
