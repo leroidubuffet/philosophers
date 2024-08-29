@@ -66,10 +66,7 @@ dkms.conf
 
 # Testing
 PhilosophersChecker.py
-tester.sh
 tests.sh
-yes-die.txt
-no-die.txt
 
 # Local files
 .vscode/
