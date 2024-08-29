@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 10:49:18 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:10:34 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_positive_integer(const char *str)
 			return (0);
 		i++;
 	}
-	num = ft_atoi(str);
+	num = ft_atoi(str);w
 	if (num <= 0)
 		return (0);
 	return (1);
@@ -55,6 +55,11 @@ int	validate_args(int argc, char **argv)
 		printf("Usage:\n%s num_philosophers time_to_die "\
 			"time_to_eat time_to_sleep "\
 			"[number_of_times_each_philosopher_must_eat]\n", argv[0]);
+		return (1);
+	}
+	if (ft_atoi(argv[1]) > 300)
+	{
+		printf("The number of philosophers must be less than 300.\n");
 		return (1);
 	}
 	i = 1;
