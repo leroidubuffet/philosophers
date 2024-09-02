@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/09/02 14:18:30 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:25:34 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static int	is_positive_integer(const char *str)
 	return (1);
 }
 
-static void	print_narg_error(void)
+/**
+ * Prints an error message indicating the correct usage of the program.
+ */
+static void print_narg_error(void)
 {
 	printf("Usage:\n./philo num_philosophers time_to_die "\
 		"time_to_eat time_to_sleep "\
