@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/09/02 14:16:13 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:18:30 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ static int	is_positive_integer(const char *str)
 	return (1);
 }
 
+static void	print_narg_error(void)
+{
+	printf("Usage:\n./philo num_philosophers time_to_die "\
+		"time_to_eat time_to_sleep "\
+		"[number_of_times_each_philosopher_must_eat]\n");
+}
+
 /**
  * Validates the command line arguments.
  *
@@ -52,9 +59,7 @@ int	validate_args(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 	{
-		printf("Usage:\n%s num_philosophers time_to_die "\
-			"time_to_eat time_to_sleep "\
-			"[number_of_times_each_philosopher_must_eat]\n", argv[0]);
+		print_narg_error();
 		return (1);
 	}
 	if (ft_atoi(argv[1]) > 300)

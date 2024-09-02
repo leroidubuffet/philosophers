@@ -10,15 +10,17 @@ Usage:
 TODO
 Update README.md
 
-Lessons learned
+# Lessons learned
 Your structs and functions must be clear to you. Very clear
 Build before you write, then build as you write
 Modularize
 Work focused. For long hours
 You do't need to push every commit
+
 Add a time buffer in monitoring
 I't all in the timing
 The processor has so many cores and will simulate paralelization, but only is it has some slack
+
 
 
 Do not test with more than 200 philosophers.
