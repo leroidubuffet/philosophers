@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 12:32:47 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:38:13 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		ft_strlen(const char *str);
 
 // Argument handling
 int		validate_args(int argc, char *argv[]);
-void	parse_args(int argc, char **argv, t_config *config);
 
 // Number utilities
 bool	ft_is_digit(const char c);
