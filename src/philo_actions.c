@@ -6,19 +6,34 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:27:48 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 11:20:29 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:44:40 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// Think routine function
+/**
+ * Makes the philosopher think.
+ * 
+ * This function is called when a philosopher is thinking. 
+ * It logs the philosopher's status as "thinking".
+ * 
+ * @param philo A pointer to the philosopher struct.
+ */
+void philo_think(t_philo *philo)
+{
+	log_philo_status("is thinking", philo);
+}
 void	philo_think(t_philo *philo)
 {
 	log_philo_status("is thinking", philo);
 }
 
-// Sleep routine function
+/**
+ * Makes the philosopher sleep for a certain amount of time.
+ *
+ * @param philo The philosopher to make sleep.
+ */
 void	philo_sleep(t_philo *philo)
 {
 	log_philo_status("is sleeping", philo);
