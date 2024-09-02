@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:27:48 by airyago           #+#    #+#             */
-/*   Updated: 2024/09/02 12:44:40 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:57:19 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@
  * @param philo A pointer to the philosopher struct.
  */
 void philo_think(t_philo *philo)
-{
-	log_philo_status("is thinking", philo);
-}
-void	philo_think(t_philo *philo)
 {
 	log_philo_status("is thinking", philo);
 }
