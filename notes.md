@@ -17,7 +17,8 @@ Modularize
 Work focused. For long hours
 You do't need to push every commit
 Add a time buffer in monitoring
-I't all in the timming
+I't all in the timing
+The processor has so many cores and will simulate paralelization, but only is it has some slack
 
 
 Do not test with more than 200 philosophers.
