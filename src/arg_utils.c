@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arg_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: airyago <airyago@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 18:44:34 by airyago           #+#    #+#             */
-/*   Updated: 2024/08/29 19:10:34 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:43:05 by airyago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_positive_integer(const char *str)
 			return (0);
 		i++;
 	}
-	num = ft_atoi(str);w
+	num = ft_atoi(str);
 	if (num <= 0)
 		return (0);
 	return (1);
