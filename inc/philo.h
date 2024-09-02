@@ -6,7 +6,7 @@
 /*   By: ybolivar <ybolivar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:25:43 by airyago           #+#    #+#             */
-/*   Updated: 2024/09/02 12:38:13 by ybolivar         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:42:20 by ybolivar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	init_philos(t_philo *philos, t_program *program,
 int		init_threads(t_program *program, pthread_mutex_t *forks);
 
 // Philosopher actions
-void	*philosopher_routine(void *arg);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
