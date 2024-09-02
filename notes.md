@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 Code assistant: Github Copilot
+=======
+Code assistant: chatGPT
+Milestones: input check
+>>>>>>> main
 
 Testers: (not tried yet)
 https://github.com/newlinuxbot/Philosphers-42Project-Tester

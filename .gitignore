@@ -1,16 +1,23 @@
 # Ignore all
 *
 
+<<<<<<< HEAD
 # Unignore all with extensions
+=======
+# Unignore all with extentions
+>>>>>>> main
 !*.*
 
 # Unignore all dirs
 !*/
 
+<<<<<<< HEAD
 # Unignore Makefile and gitignore
 !Makefile
 !.gitignore
 
+=======
+>>>>>>> main
 # Prerequisites
 *.d
 
@@ -64,6 +71,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+<<<<<<< HEAD
 # Testing
 PhilosophersChecker.py
 tests.sh
@@ -74,3 +82,7 @@ philo
 
 # DS_Store
 .DS_Store
+=======
+.vscode/
+philo
+>>>>>>> main
